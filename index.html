@@ -1,94 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
 
-    <style>
-      @font-face {
-        font-family: "IBMPlexSansArabic";
-        src: url("IBMPlexSansArabic-Light.ttf");
-      }
-      body {
-        margin: 0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
 
-      .grid {
-        display: block;
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      }
-      .device {
-        margin: 1px;
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <script src='vue/vue.js'>
+  </script>
 
-        border-width: 0.4vw;
-        border-style: solid;
+</head>
 
-        background-color: rgb(146, 146, 146);
-
-        text-align: center;
-        font-size: 2.5vw;
-      }
-      .device-values-grid {
-        display: block;
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-      .header {
-        display: inline-block;
-        margin: 1px;
-      }
-      .good {
-        border-color: rgb(72, 117, 34);
-        background-color: rgb(30, 97, 33);
-        color: white;
-      }
-      .bad {
-        border-color: rgb(109, 15, 15);
-        background-color: rgb(182, 55, 55);
-      }
-      .good p {
-        margin: 1px;
-        background-color: rgb(46, 160, 51);
-        color: white;
-      }
-      .bad p {
-        margin: 1px;
-        background-color: rgb(153, 41, 41);
-        color: white;
-      }
-
-      @media only screen and (max-width: 1024px) {
-        /* For mobile phones: */
-        .grid {
-          grid-template-columns: 1fr 1fr 1fr 1fr;
-        }
-      }
-      @media only screen and (max-width: 768px) {
-        /* For mobile phones: */
-        .grid {
-          grid-template-columns: 1fr 1fr 1fr;
-        }
-      }
-    </style>
-  </head>
-  <body>
+<body>
+  <div id="app">
     <section>
       <div class="screen">
         <div class="grid">
-          <div class="device bad">
-            <p class="header">ЛАЗ UPS R27</p>
+          <div class="device"  v-for="(dev, idx) in devices" :key="idx">
+            <p class="header">{{dev.name}}</p>
             <div class="device-values-grid">
-              <p class="p">In: 220 V</p>
-              <p>Out: 220 V</p>
-              <p>In: 50 F</p>
-              <p>Out: 50 F</p>
+              <label v-bind:class="sens.status=='3'?'good':'bad'" class="sensor" v-for="(sens, idx) in dev.sensors">
+              {{sens.lastvalue}}</label>
             </div>
           </div>
+          <!--
           <div class="device bad">
             <p class="header">ЛАЗ UPS R27</p>
             <div class="device-values-grid">
@@ -121,7 +58,11 @@
             </div>
           </div>
         </div>
-      </div>
+      </div-->
     </section>
-  </body>
+  </div>
+</body>
+<script src="/main.js">
+</script>
+
 </html>
